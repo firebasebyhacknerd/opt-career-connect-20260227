@@ -1,0 +1,219 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary-blue: #1d4ed8;
+  --primary-teal: #0f766e;
+  --primary-orange: #ea580c;
+  --dark-blue: #0f172a;
+  --dark-gray: #1e293b;
+  --medium-gray: #475569;
+  --very-light-gray: #e2e8f0;
+
+  --gradient-primary: linear-gradient(130deg, #1d4ed8 0%, #0f766e 55%, #0ea5e9 100%);
+  --gradient-accent: linear-gradient(120deg, #0f766e 0%, #ea580c 100%);
+  --gradient-shell:
+    radial-gradient(circle at 10% 12%, rgba(29, 78, 216, 0.16), transparent 32%),
+    radial-gradient(circle at 86% 8%, rgba(15, 118, 110, 0.14), transparent 30%),
+    radial-gradient(circle at 56% 88%, rgba(234, 88, 12, 0.11), transparent 38%),
+    #f5f9fc;
+
+  --font-primary: var(--font-sans), 'Segoe UI', sans-serif;
+  --font-display: var(--font-brand-display), 'Segoe UI', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-primary);
+  color: var(--dark-gray);
+  background: var(--gradient-shell);
+  line-height: 1.6;
+}
+
+body::before {
+  content: '';
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(rgba(15, 23, 42, 0.05) 0.8px, transparent 0.8px);
+  background-size: 28px 28px;
+  opacity: 0.2;
+  z-index: -1;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--dark-blue);
+  letter-spacing: -0.02em;
+}
+
+p {
+  margin: 0;
+  color: var(--dark-gray);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--primary-blue);
+}
+
+::selection {
+  background: rgba(29, 78, 216, 0.2);
+  color: #0b1738;
+}
+
+.btn {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  border-radius: 0.8rem;
+  border: 1px solid transparent;
+  padding: 0.72rem 1.2rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+.btn-primary {
+  color: #ffffff;
+  background: var(--gradient-primary);
+  border-color: rgba(15, 23, 42, 0.1);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.24);
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 28px rgba(15, 23, 42, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.26);
+}
+
+.btn-secondary {
+  color: var(--dark-blue);
+  background: rgba(255, 255, 255, 0.78);
+  border-color: rgba(15, 23, 42, 0.15);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.96);
+  transform: translateY(-1px);
+}
+
+.btn-ghost {
+  color: var(--primary-blue);
+  background: transparent;
+  border-color: rgba(29, 78, 216, 0.2);
+}
+
+.btn-ghost:hover {
+  background: rgba(29, 78, 216, 0.08);
+}
+
+.card {
+  border-radius: 1.1rem;
+  border: 1px solid rgba(148, 163, 184, 0.33);
+  background: rgba(255, 255, 255, 0.9);
+  padding: 1.5rem;
+  backdrop-filter: blur(9px);
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 16px 34px rgba(15, 23, 42, 0.11);
+}
+
+.container {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.45;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
