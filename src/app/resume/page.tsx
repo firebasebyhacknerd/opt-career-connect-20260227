@@ -26,6 +26,13 @@ interface AnalysisResult {
   suggestions: string[]
 }
 
+const steps = [
+  { number: 1, title: 'Upload Resume' },
+  { number: 2, title: 'Add Role Context' },
+  { number: 3, title: 'AI Analysis' },
+  { number: 4, title: 'Action Plan' },
+]
+
 export default function ResumeAnalysisPage() {
   const [file, setFile] = useState<File | null>(null)
   const [resumeText, setResumeText] = useState('')
@@ -102,13 +109,6 @@ export default function ResumeAnalysisPage() {
     setCurrentStep(1)
   }
 
-  const steps = [
-    { number: 1, title: 'Upload Resume' },
-    { number: 2, title: 'Add Role Context' },
-    { number: 3, title: 'AI Analysis' },
-    { number: 4, title: 'Action Plan' },
-  ]
-
   return (
     <div className="min-h-screen">
       <Toaster position="top-right" />
@@ -117,18 +117,18 @@ export default function ResumeAnalysisPage() {
       <main>
         <section className="relative overflow-hidden border-b border-slate-200 py-12">
           <div className="pointer-events-none absolute inset-0">
-            <div className="absolute left-[-10%] top-[-20%] h-[18rem] w-[18rem] rounded-full bg-primary-blue/15 blur-3xl" />
-            <div className="absolute right-[-10%] top-[15%] h-[18rem] w-[18rem] rounded-full bg-primary-teal/15 blur-3xl" />
+            <div className="absolute left-[-10%] top-[-25%] h-[18rem] w-[18rem] rounded-full bg-primary-blue/15 blur-3xl" />
+            <div className="absolute right-[-10%] top-[10%] h-[18rem] w-[18rem] rounded-full bg-primary-teal/15 blur-3xl" />
           </div>
 
           <div className="container relative z-10">
-            <span className="mb-3 inline-flex items-center gap-2 rounded-full border border-primary-teal/20 bg-primary-teal/5 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-primary-teal">
-              <Sparkles className="h-4 w-4" />
+            <span className="lux-chip">
+              <Sparkles className="h-3.5 w-3.5" />
               Resume Intelligence
             </span>
-            <h1 className="mb-3 text-4xl font-bold text-dark-blue">Optimize your resume for the role you want</h1>
-            <p className="max-w-2xl text-dark-gray">
-              Upload your resume, paste a job description, and get an ATS-oriented improvement plan with concrete edits.
+            <h1 className="mt-4 text-4xl font-bold text-dark-blue sm:text-5xl">Luxury-grade AI resume optimization</h1>
+            <p className="mt-3 max-w-3xl text-dark-gray">
+              Compare your resume against target roles, identify missing signals, and receive structured improvements.
             </p>
 
             <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
@@ -138,7 +138,7 @@ export default function ResumeAnalysisPage() {
                   className={`rounded-xl border px-4 py-3 text-sm font-semibold ${
                     step.number <= currentStep
                       ? 'border-primary-blue/30 bg-primary-blue/10 text-primary-blue'
-                      : 'border-slate-200 bg-white/80 text-slate-500'
+                      : 'border-slate-200 bg-white/85 text-slate-500'
                   }`}
                 >
                   {step.number}. {step.title}
@@ -149,12 +149,12 @@ export default function ResumeAnalysisPage() {
         </section>
 
         <section className="container py-10">
-          <div className="mx-auto max-w-4xl">
+          <div className="mx-auto max-w-5xl">
             {currentStep === 1 && (
-              <div className="rounded-3xl border border-slate-200/80 bg-white/90 p-8 shadow-sm backdrop-blur">
+              <div className="lux-panel p-8 lg:p-10">
                 <div className="mb-8 text-center">
-                  <h2 className="mb-3 text-2xl font-bold text-dark-blue">Step 1: Upload Resume</h2>
-                  <p className="text-dark-gray">Accepted formats: PDF, DOC, DOCX. Max file size 5 MB.</p>
+                  <h2 className="mb-2 text-3xl font-bold text-dark-blue">Upload your resume</h2>
+                  <p className="text-dark-gray">Supported formats: PDF, DOC, DOCX. Max size: 5 MB.</p>
                 </div>
 
                 <div
@@ -189,18 +189,21 @@ export default function ResumeAnalysisPage() {
             )}
 
             {currentStep === 2 && (
-              <div className="rounded-3xl border border-slate-200/80 bg-white/90 p-8 shadow-sm backdrop-blur">
-                <h2 className="mb-3 text-2xl font-bold text-dark-blue">Step 2: Paste Job Description</h2>
+              <div className="lux-panel p-8 lg:p-10">
+                <h2 className="mb-2 text-3xl font-bold text-dark-blue">Paste target job description</h2>
                 <p className="mb-6 text-dark-gray">
-                  Include responsibilities, required skills, and qualifications for better matching.
+                  Include responsibilities, requirements, and required skills for better match quality.
                 </p>
 
-                <textarea
-                  value={jobDescription}
-                  onChange={(event) => setJobDescription(event.target.value)}
-                  placeholder="Paste the complete job description here"
-                  className="h-64 w-full resize-none rounded-xl border border-slate-300 bg-white p-4 text-sm outline-none transition focus:border-primary-blue focus:ring-2 focus:ring-primary-blue/20"
-                />
+                <label>
+                  <span className="lux-label">Job description</span>
+                  <textarea
+                    value={jobDescription}
+                    onChange={(event) => setJobDescription(event.target.value)}
+                    placeholder="Paste the complete job description here"
+                    className="lux-input h-64 resize-none"
+                  />
+                </label>
 
                 <div className="mt-6 flex flex-col gap-3 sm:flex-row">
                   <button onClick={() => setCurrentStep(1)} className="btn btn-secondary">
@@ -214,18 +217,18 @@ export default function ResumeAnalysisPage() {
             )}
 
             {currentStep === 3 && (
-              <div className="rounded-3xl border border-slate-200/80 bg-white/90 p-12 text-center shadow-sm backdrop-blur">
+              <div className="lux-panel p-12 text-center">
                 <div className="mx-auto mb-6 inline-flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-primary-blue to-primary-teal text-white">
                   <Brain className="h-8 w-8 animate-pulse" />
                 </div>
-                <h2 className="mb-2 text-2xl font-bold text-dark-blue">AI is analyzing your resume</h2>
-                <p className="mb-6 text-dark-gray">Comparing your profile with role requirements and ATS expectations.</p>
+                <h2 className="mb-2 text-3xl font-bold text-dark-blue">Analyzing your resume with AI</h2>
+                <p className="mb-6 text-dark-gray">Comparing role requirements, ATS structure, and keyword signal.</p>
                 {isAnalyzing && (
                   <div className="mx-auto max-w-md">
                     <div className="h-2 w-full rounded-full bg-slate-200">
                       <div className="h-full w-full animate-pulse rounded-full bg-gradient-to-r from-primary-blue to-primary-teal" />
                     </div>
-                    <p className="mt-3 text-sm text-medium-gray">This can take a few moments.</p>
+                    <p className="mt-3 text-sm text-medium-gray">This may take a few moments.</p>
                   </div>
                 )}
               </div>
@@ -233,16 +236,16 @@ export default function ResumeAnalysisPage() {
 
             {currentStep === 4 && analysisResult && (
               <div className="space-y-6">
-                <div className="rounded-3xl border border-slate-200/80 bg-white/90 p-8 text-center shadow-sm backdrop-blur">
+                <div className="lux-panel p-8 text-center">
                   <div className="mx-auto mb-4 inline-flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-primary-blue to-primary-teal text-3xl font-bold text-white">
                     {analysisResult.overallScore}
                   </div>
                   <h2 className="mb-1 text-2xl font-bold text-dark-blue">Overall Resume Score</h2>
-                  <p className="text-medium-gray">Score out of 100 based on role fit and document quality.</p>
+                  <p className="text-medium-gray">Score out of 100 based on role fit and profile strength.</p>
                 </div>
 
                 <div className="grid gap-6 md:grid-cols-2">
-                  <div className="rounded-3xl border border-slate-200/80 bg-white/90 p-6 shadow-sm">
+                  <div className="lux-panel p-6">
                     <h3 className="mb-4 text-xl font-bold text-dark-blue">Score Breakdown</h3>
                     {[
                       { label: 'ATS Compatibility', value: analysisResult.atsScore, color: 'bg-primary-blue' },
@@ -263,7 +266,7 @@ export default function ResumeAnalysisPage() {
                   </div>
 
                   <div className="space-y-6">
-                    <div className="rounded-3xl border border-slate-200/80 bg-white/90 p-6 shadow-sm">
+                    <div className="lux-panel p-6">
                       <h3 className="mb-3 text-xl font-bold text-dark-blue">Missing Skills</h3>
                       <div className="space-y-2">
                         {analysisResult.missingSkills.map((skill, index) => (
@@ -275,7 +278,7 @@ export default function ResumeAnalysisPage() {
                       </div>
                     </div>
 
-                    <div className="rounded-3xl border border-slate-200/80 bg-white/90 p-6 shadow-sm">
+                    <div className="lux-panel p-6">
                       <h3 className="mb-3 text-xl font-bold text-dark-blue">Top Improvements</h3>
                       <div className="space-y-2">
                         {analysisResult.improvements.map((improvement, index) => (
@@ -289,7 +292,7 @@ export default function ResumeAnalysisPage() {
                   </div>
                 </div>
 
-                <div className="rounded-3xl border border-slate-200/80 bg-white/90 p-6 shadow-sm">
+                <div className="lux-panel p-6">
                   <h3 className="mb-4 text-xl font-bold text-dark-blue">Tailored Suggestions</h3>
                   <div className="grid gap-3 md:grid-cols-2">
                     {analysisResult.suggestions.map((suggestion, index) => (
@@ -305,7 +308,10 @@ export default function ResumeAnalysisPage() {
                   <button onClick={resetAnalysis} className="btn btn-secondary">
                     Analyze Another Resume
                   </button>
-                  <button className="btn btn-primary">Download Report</button>
+                  <button className="btn btn-primary">
+                    <Sparkles className="h-4 w-4" />
+                    Download Report
+                  </button>
                 </div>
               </div>
             )}

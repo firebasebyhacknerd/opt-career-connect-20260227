@@ -313,7 +313,7 @@ export default function AdminConfigConsole() {
 
   if (loading) {
     return (
-      <div className="card text-center py-14">
+      <div className="lux-panel text-center py-14">
         <Activity className="w-10 h-10 mx-auto text-primary-teal animate-pulse mb-4" />
         <p className="text-dark-gray">Loading admin config...</p>
       </div>
@@ -322,10 +322,10 @@ export default function AdminConfigConsole() {
 
   if (authRequired) {
     return (
-      <section className="max-w-lg mx-auto">
+      <section className="max-w-xl mx-auto">
         <Toaster position="top-right" />
-        <div className="card overflow-hidden p-0">
-          <div className="bg-gradient-to-r from-primary-blue to-primary-teal p-6 text-white">
+        <div className="lux-panel overflow-hidden p-0">
+          <div className="bg-gradient-to-r from-primary-blue via-primary-teal to-secondary-orange p-6 text-white">
             <div className="flex items-center gap-3">
               <div className="w-11 h-11 rounded-xl bg-white/20 flex items-center justify-center">
                 <ShieldCheck className="w-6 h-6" />
@@ -342,10 +342,10 @@ export default function AdminConfigConsole() {
             </p>
             <form onSubmit={handleLogin} className="space-y-4">
               <label className="block">
-                <span className="text-sm font-semibold text-dark-blue mb-2 block">Password</span>
+                <span className="lux-label">Password</span>
                 <input
                   type="password"
-                  className="w-full p-3 border border-gray-300 rounded-xl bg-white"
+                  className="lux-input"
                   placeholder="Admin password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -365,7 +365,7 @@ export default function AdminConfigConsole() {
     <div className="space-y-8">
       <Toaster position="top-right" />
 
-      <section className="card overflow-hidden p-0">
+      <section className="lux-panel overflow-hidden p-0">
         <div className="p-7 bg-gradient-to-br from-primary-blue/90 via-primary-teal/90 to-secondary-orange/90 text-white relative">
           <div className="absolute -right-8 -top-8 w-32 h-32 rounded-full bg-white/15 blur-2xl" />
           <div className="absolute right-16 bottom-0 w-20 h-20 rounded-full bg-white/10 blur-xl" />
@@ -399,7 +399,7 @@ export default function AdminConfigConsole() {
       </section>
 
       <section className="grid lg:grid-cols-3 gap-4">
-        <div className="card">
+        <div className="lux-panel p-5">
           <p className="text-sm text-medium-gray">Storage Layer</p>
           <p className="text-xl font-semibold text-dark-blue mt-1">
             {storageAvailable ? 'Connected' : 'Unavailable'}
@@ -408,12 +408,12 @@ export default function AdminConfigConsole() {
             {storageAvailable ? 'Settings are persisted in Postgres.' : 'Using env/default fallback only.'}
           </p>
         </div>
-        <div className="card">
+        <div className="lux-panel p-5">
           <p className="text-sm text-medium-gray">Managed Keys</p>
           <p className="text-xl font-semibold text-dark-blue mt-1">{settings.length}</p>
           <p className="text-sm text-medium-gray mt-2">Across AI, Jobs, and Site configuration.</p>
         </div>
-        <div className="card">
+        <div className="lux-panel p-5">
           <p className="text-sm text-medium-gray">Recent Change Events</p>
           <p className="text-xl font-semibold text-dark-blue mt-1">{audit.length}</p>
           <p className="text-sm text-medium-gray mt-2">Latest entries from settings audit history.</p>
@@ -421,7 +421,7 @@ export default function AdminConfigConsole() {
       </section>
 
       {!storageAvailable && (
-        <div className="card border border-orange-200 bg-orange-50">
+        <div className="lux-panel border border-orange-200 bg-orange-50 p-5">
           <p className="text-orange-800 font-semibold">Settings storage unavailable.</p>
           <p className="text-orange-700 text-sm mt-1">
             Run the `app_settings` migration first, then retry save operations.
@@ -430,7 +430,7 @@ export default function AdminConfigConsole() {
       )}
 
       {warnings.length > 0 && (
-        <div className="card border border-yellow-200 bg-yellow-50">
+        <div className="lux-panel border border-yellow-200 bg-yellow-50 p-5">
           {warnings.map((warning, index) => (
             <p key={index} className="text-yellow-900 text-sm">
               {warning}
@@ -439,7 +439,7 @@ export default function AdminConfigConsole() {
         </div>
       )}
 
-      <div className="card">
+      <div className="lux-panel p-6">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <div>
             <h2 className="text-xl font-bold text-dark-blue">Provider Health Check</h2>
@@ -455,7 +455,7 @@ export default function AdminConfigConsole() {
       {(['ai', 'jobs', 'site'] as Section[]).map((section) => {
         const Icon = sectionIcon(section)
         return (
-          <section key={section} className="card space-y-5">
+          <section key={section} className="lux-panel space-y-5 p-6">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-blue to-primary-teal text-white flex items-center justify-center">
                 <Icon className="w-5 h-5" />
@@ -468,7 +468,7 @@ export default function AdminConfigConsole() {
 
             <div className="space-y-4">
               {groupedSettings[section].map((setting) => (
-                <div key={setting.key} className="rounded-2xl border border-slate-200 bg-white/80 p-4 md:p-5">
+                <div key={setting.key} className="rounded-2xl border border-slate-200 bg-white/85 p-4 md:p-5">
                   <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-3 mb-4">
                     <div className="space-y-1">
                       <div className="flex flex-wrap items-center gap-2">
@@ -491,7 +491,7 @@ export default function AdminConfigConsole() {
 
                   {setting.options && setting.options.length > 0 ? (
                     <select
-                      className="w-full p-3 border border-slate-300 rounded-xl bg-white"
+                      className="lux-input"
                       value={String(formValues[setting.key] ?? '')}
                       onChange={(e) => handleValueChange(setting.key, e.target.value)}
                     >
@@ -518,7 +518,7 @@ export default function AdminConfigConsole() {
                         <KeyRound className="w-4 h-4 absolute left-3 top-3.5 text-slate-400" />
                         <input
                           type="password"
-                          className="w-full p-3 pl-9 border border-slate-300 rounded-xl bg-white"
+                          className="lux-input pl-9"
                           placeholder={setting.isSet ? 'Enter new key to replace current secret' : 'Enter API key'}
                           value={String(formValues[setting.key] ?? '') === '__CLEAR__' ? '' : String(formValues[setting.key] ?? '')}
                           onChange={(e) => handleValueChange(setting.key, e.target.value)}
@@ -531,7 +531,7 @@ export default function AdminConfigConsole() {
                   ) : (
                     <input
                       type="text"
-                      className="w-full p-3 border border-slate-300 rounded-xl bg-white"
+                      className="lux-input"
                       value={String(formValues[setting.key] ?? '')}
                       onChange={(e) => handleValueChange(setting.key, e.target.value)}
                     />
@@ -550,7 +550,7 @@ export default function AdminConfigConsole() {
         )
       })}
 
-      <section className="card space-y-4">
+      <section className="lux-panel space-y-4 p-6">
         <h2 className="text-xl font-bold text-dark-blue">Recent Changes</h2>
         {audit.length === 0 ? (
           <p className="text-medium-gray text-sm">No settings changes recorded yet.</p>

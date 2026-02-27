@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { ArrowRight, Search, Sparkles } from 'lucide-react'
+import { ArrowRight, CheckCircle2, Search, Sparkles } from 'lucide-react'
 import Footer from '@/components/Footer'
 import SiteHeader from '@/components/SiteHeader'
 import { brand } from '@/lib/brand'
@@ -13,24 +13,41 @@ export const metadata: Metadata = {
   },
 }
 
+const demoChecks = [
+  'Jobs API with fallback mode',
+  'Resume analysis AI with fallback scoring',
+  'Admin runtime config and source controls',
+]
+
 export default function DemoPage() {
   return (
     <div className="min-h-screen">
       <SiteHeader />
       <main>
         <section className="container py-16">
-          <div className="mx-auto max-w-4xl rounded-3xl border border-slate-200/80 bg-white/90 p-8 shadow-lg backdrop-blur lg:p-10">
-            <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-primary-blue/20 bg-primary-blue/5 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-primary-blue">
-              <Sparkles className="h-4 w-4" />
+          <div className="lux-panel mx-auto max-w-5xl p-8 lg:p-10">
+            <span className="lux-chip">
+              <Sparkles className="h-3.5 w-3.5" />
               Demo Mode
             </span>
-            <h1 className="mb-3 text-4xl font-bold text-dark-blue">Walk through the live workflow</h1>
-            <p className="mb-10 max-w-2xl text-dark-gray">
-              Use these pages to validate your deployment quickly. Jobs and resume analysis work with runtime config
-              and fallback behavior.
+
+            <h1 className="mt-4 text-4xl font-bold text-dark-blue">Walk through the live product flow</h1>
+            <p className="mt-3 max-w-3xl text-dark-gray">
+              Validate the complete experience in minutes. Every flow below is connected to your current runtime config.
             </p>
 
-            <div className="grid gap-5 md:grid-cols-2">
+            <div className="mt-6 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+              {demoChecks.map((item) => (
+                <div key={item} className="lux-soft p-3 text-sm text-slate-700">
+                  <span className="inline-flex items-center gap-2">
+                    <CheckCircle2 className="h-4 w-4 text-secondary-green" />
+                    {item}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-8 grid gap-5 md:grid-cols-2">
               <article className="rounded-2xl border border-slate-200 bg-slate-50/80 p-5">
                 <h2 className="mb-2 text-xl font-bold text-dark-blue">1. Job Discovery</h2>
                 <p className="mb-4 text-sm text-dark-gray">
@@ -45,7 +62,7 @@ export default function DemoPage() {
               <article className="rounded-2xl border border-slate-200 bg-slate-50/80 p-5">
                 <h2 className="mb-2 text-xl font-bold text-dark-blue">2. Resume Analysis</h2>
                 <p className="mb-4 text-sm text-dark-gray">
-                  Analyze resume quality against a role description. AI key missing? Local scoring fallback handles it.
+                  Analyze resume quality against a role description. If AI is unavailable, fallback scoring handles it.
                 </p>
                 <Link href="/resume" className="btn btn-primary inline-flex items-center gap-2">
                   Open Resume Tool

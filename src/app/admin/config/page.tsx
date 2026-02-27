@@ -25,9 +25,9 @@ export default function AdminConfigPage() {
     <div className="min-h-screen relative overflow-hidden">
       <SiteHeader />
       <main>
-        <div className="absolute top-12 left-10 w-64 h-64 rounded-full bg-primary-blue/10 blur-3xl pointer-events-none" />
-        <div className="absolute bottom-8 right-12 w-72 h-72 rounded-full bg-secondary-orange/10 blur-3xl pointer-events-none" />
-        <div className="container py-10 relative z-10">
+        <div className="absolute top-12 left-10 w-64 h-64 rounded-full bg-primary-blue/12 blur-3xl pointer-events-none" />
+        <div className="absolute bottom-8 right-12 w-72 h-72 rounded-full bg-secondary-orange/12 blur-3xl pointer-events-none" />
+        <div className="container py-10 relative z-10 max-w-[1320px]">
           <AdminConfigConsole />
         </div>
       </main>

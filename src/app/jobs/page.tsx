@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
 import {
   Briefcase,
@@ -8,8 +8,10 @@ import {
   Filter,
   MapPin,
   Search,
+  ShieldCheck,
   Sparkles,
   Star,
+  Wand2,
 } from 'lucide-react'
 import Footer from '@/components/Footer'
 import SiteHeader from '@/components/SiteHeader'
@@ -50,6 +52,8 @@ const initialFilters: SearchFilters = {
 
 const formatEnum = (value: string) => value.replace(/_/g, ' ').toLowerCase()
 
+const quickSearches = ['Software Engineer', 'Data Analyst', 'Product Manager', 'Remote', 'Visa Sponsorship']
+
 export default function JobsPage() {
   const [jobs, setJobs] = useState<Job[]>([])
   const [loading, setLoading] = useState(false)
@@ -63,6 +67,11 @@ export default function JobsPage() {
   useEffect(() => {
     searchJobs()
   }, [currentPage])
+
+  const activeFilterCount = useMemo(
+    () => Object.values(filters).filter((value) => value !== '' && value !== false).length,
+    [filters]
+  )
 
   const searchJobs = async () => {
     setLoading(true)
@@ -111,7 +120,7 @@ export default function JobsPage() {
   }
 
   const saveJob = () => {
-    toast.success('Job saved successfully')
+    toast.success('Saved to your shortlist')
   }
 
   const applyToJob = (job: Job) => {
@@ -130,69 +139,93 @@ export default function JobsPage() {
       <main>
         <section className="relative overflow-hidden border-b border-slate-200 py-12">
           <div className="pointer-events-none absolute inset-0">
-            <div className="absolute left-[-10%] top-[-30%] h-[18rem] w-[18rem] rounded-full bg-primary-blue/15 blur-3xl" />
-            <div className="absolute right-[-8%] top-[10%] h-[16rem] w-[16rem] rounded-full bg-primary-teal/15 blur-3xl" />
+            <div className="absolute left-[-8%] top-[-35%] h-[20rem] w-[20rem] rounded-full bg-primary-blue/15 blur-3xl" />
+            <div className="absolute right-[-8%] top-[5%] h-[16rem] w-[16rem] rounded-full bg-primary-teal/15 blur-3xl" />
           </div>
 
           <div className="container relative z-10">
-            <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+            <div className="grid gap-5 lg:grid-cols-[1fr_auto] lg:items-end">
               <div>
-                <span className="mb-3 inline-flex items-center gap-2 rounded-full border border-primary-blue/20 bg-primary-blue/5 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-primary-blue">
-                  <Sparkles className="h-4 w-4" />
-                  Job Discovery
+                <span className="lux-chip">
+                  <Sparkles className="h-3.5 w-3.5" />
+                  Luxury Job Discovery
                 </span>
-                <h1 className="mb-3 text-4xl font-bold text-dark-blue">Find visa-aware roles that match your profile</h1>
-                <p className="max-w-2xl text-dark-gray">
-                  Search OPT and CPT opportunities with practical filters. Results can run from database, fallback,
-                  or auto mode based on your admin config.
+                <h1 className="mt-4 text-4xl font-bold text-dark-blue sm:text-5xl">Find premium OPT and CPT roles faster</h1>
+                <p className="mt-3 max-w-3xl text-dark-gray">
+                  Search, filter, and apply using a cleaner workflow tuned for international student hiring.
                 </p>
               </div>
-              <div className="rounded-xl border border-primary-blue/20 bg-white/90 px-4 py-3 text-sm font-medium text-primary-blue shadow-sm">
-                AI-enhanced matching enabled
+              <div className="lux-soft px-4 py-3 text-sm font-medium text-primary-blue">
+                <span className="inline-flex items-center gap-2">
+                  <Wand2 className="h-4 w-4" />
+                  AI matching active
+                </span>
               </div>
+            </div>
+
+            <div className="mt-6 flex flex-wrap gap-2">
+              {quickSearches.map((tag) => (
+                <button
+                  key={tag}
+                  type="button"
+                  onClick={() => {
+                    setSearchQuery(tag)
+                    setCurrentPage(1)
+                  }}
+                  className="rounded-full border border-slate-200 bg-white/90 px-3 py-1.5 text-xs font-semibold text-slate-700 transition hover:border-primary-blue hover:text-primary-blue"
+                >
+                  {tag}
+                </button>
+              ))}
             </div>
           </div>
         </section>
 
         <section className="container py-8">
-          <form onSubmit={handleSearch} className="mb-6 rounded-3xl border border-slate-200/80 bg-white/90 p-5 shadow-sm backdrop-blur lg:p-6">
-            <div className="grid gap-3 lg:grid-cols-[1fr_20rem_auto]">
-              <div className="relative">
-                <Search className="pointer-events-none absolute left-3 top-3.5 h-5 w-5 text-slate-400" />
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={(event) => setSearchQuery(event.target.value)}
-                  placeholder="Search title, keyword, company"
-                  className="w-full rounded-xl border border-slate-300 bg-white px-10 py-3 text-sm outline-none transition focus:border-primary-blue focus:ring-2 focus:ring-primary-blue/20"
-                />
-              </div>
+          <form onSubmit={handleSearch} className="lux-panel mb-6 p-5 lg:p-6">
+            <div className="grid gap-3 lg:grid-cols-[1fr_18rem_auto]">
+              <label>
+                <span className="lux-label">Role or keyword</span>
+                <div className="relative">
+                  <Search className="pointer-events-none absolute left-3 top-3.5 h-4 w-4 text-slate-400" />
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(event) => setSearchQuery(event.target.value)}
+                    placeholder="Software engineer, analyst, cloud"
+                    className="lux-input pl-9"
+                  />
+                </div>
+              </label>
 
-              <div className="relative">
-                <MapPin className="pointer-events-none absolute left-3 top-3.5 h-5 w-5 text-slate-400" />
-                <input
-                  type="text"
-                  value={location}
-                  onChange={(event) => setLocation(event.target.value)}
-                  placeholder="Location or Remote"
-                  className="w-full rounded-xl border border-slate-300 bg-white px-10 py-3 text-sm outline-none transition focus:border-primary-blue focus:ring-2 focus:ring-primary-blue/20"
-                />
-              </div>
+              <label>
+                <span className="lux-label">Location</span>
+                <div className="relative">
+                  <MapPin className="pointer-events-none absolute left-3 top-3.5 h-4 w-4 text-slate-400" />
+                  <input
+                    type="text"
+                    value={location}
+                    onChange={(event) => setLocation(event.target.value)}
+                    placeholder="City or remote"
+                    className="lux-input pl-9"
+                  />
+                </div>
+              </label>
 
-              <div className="flex gap-2">
+              <div className="flex items-end gap-2">
                 <button
                   type="button"
                   onClick={() => setShowFilters((value) => !value)}
-                  className={`inline-flex items-center gap-2 rounded-xl border px-4 py-3 text-sm font-semibold transition ${
+                  className={`inline-flex h-[42px] items-center gap-2 rounded-xl border px-4 text-sm font-semibold transition ${
                     showFilters
                       ? 'border-primary-blue bg-primary-blue/10 text-primary-blue'
                       : 'border-slate-300 bg-white text-slate-700 hover:border-slate-400'
                   }`}
                 >
                   <Filter className="h-4 w-4" />
-                  Filters
+                  Filters {activeFilterCount > 0 ? `(${activeFilterCount})` : ''}
                 </button>
-                <button type="submit" className="btn btn-primary px-6" disabled={loading}>
+                <button type="submit" className="btn btn-primary h-[42px] px-6" disabled={loading}>
                   {loading ? 'Searching...' : 'Search'}
                 </button>
               </div>
@@ -201,12 +234,12 @@ export default function JobsPage() {
             {showFilters && (
               <div className="mt-4 rounded-2xl border border-slate-200 bg-slate-50/80 p-4">
                 <div className="grid gap-4 md:grid-cols-4">
-                  <div>
-                    <label className="mb-2 block text-xs font-semibold uppercase tracking-wide text-slate-600">Visa Type</label>
+                  <label>
+                    <span className="lux-label">Visa type</span>
                     <select
                       value={filters.visaType}
                       onChange={(event) => handleFilterChange('visaType', event.target.value)}
-                      className="w-full rounded-lg border border-slate-300 bg-white p-2 text-sm outline-none transition focus:border-primary-blue focus:ring-2 focus:ring-primary-blue/20"
+                      className="lux-input"
                     >
                       <option value="">All</option>
                       <option value="OPT">OPT</option>
@@ -214,14 +247,14 @@ export default function JobsPage() {
                       <option value="H1B">H1B</option>
                       <option value="F1">F1</option>
                     </select>
-                  </div>
+                  </label>
 
-                  <div>
-                    <label className="mb-2 block text-xs font-semibold uppercase tracking-wide text-slate-600">Job Type</label>
+                  <label>
+                    <span className="lux-label">Job type</span>
                     <select
                       value={filters.jobType}
                       onChange={(event) => handleFilterChange('jobType', event.target.value)}
-                      className="w-full rounded-lg border border-slate-300 bg-white p-2 text-sm outline-none transition focus:border-primary-blue focus:ring-2 focus:ring-primary-blue/20"
+                      className="lux-input"
                     >
                       <option value="">All</option>
                       <option value="FULL_TIME">Full Time</option>
@@ -229,14 +262,14 @@ export default function JobsPage() {
                       <option value="CONTRACT">Contract</option>
                       <option value="INTERNSHIP">Internship</option>
                     </select>
-                  </div>
+                  </label>
 
-                  <div>
-                    <label className="mb-2 block text-xs font-semibold uppercase tracking-wide text-slate-600">Experience</label>
+                  <label>
+                    <span className="lux-label">Experience</span>
                     <select
                       value={filters.experienceLevel}
                       onChange={(event) => handleFilterChange('experienceLevel', event.target.value)}
-                      className="w-full rounded-lg border border-slate-300 bg-white p-2 text-sm outline-none transition focus:border-primary-blue focus:ring-2 focus:ring-primary-blue/20"
+                      className="lux-input"
                     >
                       <option value="">All</option>
                       <option value="ENTRY_LEVEL">Entry level</option>
@@ -244,9 +277,9 @@ export default function JobsPage() {
                       <option value="SENIOR">Senior</option>
                       <option value="EXECUTIVE">Executive</option>
                     </select>
-                  </div>
+                  </label>
 
-                  <label className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-slate-700 md:mt-8">
+                  <label className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-slate-700 md:mt-7">
                     <input
                       type="checkbox"
                       checked={filters.remote}
@@ -259,10 +292,10 @@ export default function JobsPage() {
 
                 <div className="mt-4 flex items-center justify-between">
                   <button type="button" onClick={clearFilters} className="text-sm font-semibold text-primary-blue hover:underline">
-                    Clear all
+                    Clear filters
                   </button>
                   <button type="button" onClick={() => setShowFilters(false)} className="btn btn-secondary py-2 text-sm">
-                    Close filters
+                    Close panel
                   </button>
                 </div>
               </div>
@@ -273,13 +306,16 @@ export default function JobsPage() {
             <h2 className="text-lg font-semibold text-dark-blue">
               {loading ? 'Searching roles...' : `${jobs.length} roles found`}
             </h2>
-            <p className="text-sm text-medium-gray">Sorted by relevance</p>
+            <div className="inline-flex items-center gap-2 text-sm text-medium-gray">
+              <ShieldCheck className="h-4 w-4 text-primary-teal" />
+              Visa-aware relevance sorting
+            </div>
           </div>
 
           {loading ? (
             <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
               {[...Array(6)].map((_, index) => (
-                <div key={`loading-${index}`} className="rounded-2xl border border-slate-200 bg-white p-5">
+                <div key={`loading-${index}`} className="lux-panel p-5">
                   <div className="mb-3 h-4 w-2/3 animate-pulse rounded bg-slate-200" />
                   <div className="mb-2 h-3 w-1/2 animate-pulse rounded bg-slate-200" />
                   <div className="h-3 w-3/4 animate-pulse rounded bg-slate-200" />
@@ -292,7 +328,7 @@ export default function JobsPage() {
                 {jobs.map((job) => (
                   <article
                     key={job.id}
-                    className="rounded-3xl border border-slate-200/80 bg-white/90 p-5 shadow-sm backdrop-blur transition-all hover:-translate-y-0.5 hover:shadow-xl"
+                    className="lux-panel p-5 transition-all hover:-translate-y-0.5 hover:shadow-xl"
                   >
                     <div className="mb-4 flex items-start justify-between gap-4">
                       <div className="flex min-w-0 items-center gap-3">
@@ -417,7 +453,7 @@ export default function JobsPage() {
               )}
             </>
           ) : (
-            <div className="rounded-3xl border border-slate-200/80 bg-white/90 p-12 text-center shadow-sm">
+            <div className="lux-panel p-12 text-center">
               <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-slate-100">
                 <Search className="h-6 w-6 text-slate-500" />
               </div>
