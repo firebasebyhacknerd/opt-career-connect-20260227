@@ -2,168 +2,132 @@
 
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { Briefcase, MapPin, Quote, Star } from 'lucide-react'
+import {
+  ArrowRight,
+  BadgeCheck,
+  BellRing,
+  Brain,
+  CheckCircle2,
+  FileSearch,
+  SlidersHorizontal,
+} from 'lucide-react'
 
-const SuccessStories = () => {
-  const stories = [
-    {
-      name: 'Maria Rodriguez',
-      university: 'University of Texas',
-      visa: 'OPT to H-1B',
-      role: 'Software Engineer',
-      company: 'Google',
-      quote:
-        'The resume analysis highlighted exactly what recruiters needed. My callbacks improved within two weeks.',
-      rating: 5,
-      stats: {
-        applications: 12,
-        interviews: 4,
-        offers: 2,
-      },
-    },
-    {
-      name: 'Ahmed Hassan',
-      university: 'University of Illinois',
-      visa: 'CPT to OPT',
-      role: 'Data Scientist',
-      company: 'Amazon',
-      quote:
-        'I stopped applying blindly. The platform gave me role-fit direction and clear improvements for each application cycle.',
-      rating: 5,
-      stats: {
-        applications: 8,
-        interviews: 3,
-        offers: 1,
-      },
-    },
-    {
-      name: 'Priya Sharma',
-      university: 'Columbia University',
-      visa: 'OPT',
-      role: 'Financial Analyst',
-      company: 'Goldman Sachs',
-      quote:
-        'The suggestions were practical and specific. I rewrote my bullets, matched key terms, and converted interviews into offers.',
-      rating: 5,
-      stats: {
-        applications: 15,
-        interviews: 5,
-        offers: 3,
-      },
-    },
-  ]
+const personalizedBuckets = [
+  {
+    title: 'Based on your profile',
+    description: 'Recommended roles from your uploaded resume and target domain.',
+    tags: ['AI Match Score', 'Skills Gap Alerts', 'Role Prioritization'],
+  },
+  {
+    title: 'Based on location',
+    description: 'Get city and remote opportunities with optimized search presets.',
+    tags: ['Metro Focus', 'Remote Blend', 'Timezone Friendly'],
+  },
+  {
+    title: 'Based on application stage',
+    description: 'Surface jobs that align with your current process and availability.',
+    tags: ['Quick Apply', 'Interview-ready', 'H1B Potential'],
+  },
+]
 
+const premiumFeatures = [
+  {
+    title: 'Resume Deep Scan',
+    icon: FileSearch,
+    text: 'Role-based ATS checks and rewrite suggestions.',
+  },
+  {
+    title: 'Smart Match Engine',
+    icon: Brain,
+    text: 'Weighted matching across visa, skill, and company profile.',
+  },
+  {
+    title: 'Instant Alerts',
+    icon: BellRing,
+    text: 'Get notified when relevant openings go live.',
+  },
+  {
+    title: 'Advanced Filters',
+    icon: SlidersHorizontal,
+    text: 'Control source mode, role intent, and search depth.',
+  },
+]
+
+export default function SuccessStories() {
   return (
-    <section className="py-24" id="stories">
-      <div className="container">
+    <section className="py-20" id="stories">
+      <div className="container space-y-10">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.55 }}
+          transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          className="mb-16 text-center"
+          className="text-center"
         >
-          <h2 className="mb-6 text-4xl font-bold text-dark-blue lg:text-5xl">
-            Proof from real student journeys
-          </h2>
-          <p className="mx-auto max-w-3xl text-lg text-dark-gray">
-            These outcomes come from disciplined targeting, better resume signal, and consistent follow-through.
+          <h2 className="text-4xl font-bold text-dark-blue">Jobs made for you, not random lists</h2>
+          <p className="mx-auto mt-3 max-w-3xl text-lg text-dark-gray">
+            Inspired by fast-market hiring UX, refined for international student career paths and premium decision quality.
           </p>
         </motion.div>
 
-        <div className="mb-16 grid gap-6 lg:grid-cols-3">
-          {stories.map((story, index) => (
-            <motion.div
-              key={story.name}
-              initial={{ opacity: 0, y: 20 }}
+        <div className="grid gap-4 lg:grid-cols-3">
+          {personalizedBuckets.map((bucket, index) => (
+            <motion.article
+              key={bucket.title}
+              initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.55, delay: index * 0.12 }}
+              transition={{ duration: 0.45, delay: index * 0.08 }}
               viewport={{ once: true }}
-              className="group rounded-3xl border border-slate-200/75 bg-white/90 p-6 shadow-sm backdrop-blur transition-all hover:-translate-y-0.5 hover:shadow-xl"
+              className="rounded-2xl border border-slate-200/80 bg-white/90 p-5 shadow-sm"
             >
-              <div className="mb-5 flex items-center gap-4">
-                <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-primary-blue to-primary-teal">
-                  <span className="text-lg font-bold text-white">
-                    {story.name
-                      .split(' ')
-                      .map((name) => name[0])
-                      .join('')}
-                  </span>
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-lg font-bold text-dark-blue group-hover:text-primary-blue">{story.name}</h3>
-                  <p className="text-sm text-medium-gray">{story.university}</p>
-                  <div className="mt-1">
-                    <span className="rounded-full bg-primary-blue/10 px-2 py-1 text-xs font-semibold text-primary-blue">
-                      {story.visa}
-                    </span>
-                  </div>
-                </div>
+              <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-primary-blue/20 bg-primary-blue/5 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-primary-blue">
+                <BadgeCheck className="h-3.5 w-3.5" />
+                Personalized
               </div>
-
-              <div className="mb-5 rounded-2xl border border-primary-teal/20 bg-primary-teal/5 p-4">
-                <div className="mb-1 flex items-center gap-2">
-                  <Briefcase className="h-4 w-4 text-primary-teal" />
-                  <span className="font-semibold text-dark-blue">{story.role}</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm text-medium-gray">
-                  <MapPin className="h-4 w-4" />
-                  <span>{story.company}</span>
-                </div>
-              </div>
-
-              <div className="relative mb-5">
-                <Quote className="absolute -left-1 -top-1 h-8 w-8 text-primary-blue/20" />
-                <blockquote className="pl-6 text-sm leading-relaxed text-dark-gray">"{story.quote}"</blockquote>
-              </div>
-
-              <div className="mb-5 flex items-center gap-1">
-                {[...Array(story.rating)].map((_, i) => (
-                  <Star key={`${story.name}-star-${i}`} className="h-4 w-4 fill-secondary-orange text-secondary-orange" />
+              <h3 className="text-xl font-semibold text-dark-blue">{bucket.title}</h3>
+              <p className="mt-2 text-sm text-medium-gray">{bucket.description}</p>
+              <ul className="mt-4 space-y-2">
+                {bucket.tags.map((tag) => (
+                  <li key={tag} className="inline-flex items-center gap-2 text-sm text-dark-gray">
+                    <CheckCircle2 className="h-4 w-4 text-secondary-green" />
+                    {tag}
+                  </li>
                 ))}
-              </div>
-
-              <div className="grid grid-cols-3 gap-4 border-t border-slate-200 pt-4">
-                <div className="text-center">
-                  <div className="text-xl font-bold text-primary-blue">{story.stats.applications}</div>
-                  <div className="text-xs text-medium-gray">Applications</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-xl font-bold text-primary-purple">{story.stats.interviews}</div>
-                  <div className="text-xs text-medium-gray">Interviews</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-xl font-bold text-primary-teal">{story.stats.offers}</div>
-                  <div className="text-xs text-medium-gray">Offers</div>
-                </div>
-              </div>
-            </motion.div>
+              </ul>
+            </motion.article>
           ))}
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.55 }}
-          viewport={{ once: true }}
-          className="rounded-3xl border border-slate-200/80 bg-gradient-to-r from-primary-blue/5 via-primary-teal/5 to-secondary-orange/5 p-8 text-center lg:p-12"
-        >
-          <h3 className="mb-4 text-3xl font-bold text-dark-blue">Ready to build your own outcome?</h3>
-          <p className="mx-auto mb-8 max-w-2xl text-lg text-dark-gray">
-            Start with one focused role, optimize your resume for it, and ship stronger applications this week.
-          </p>
-          <div className="flex flex-col justify-center gap-3 sm:flex-row">
-            <Link href="/register" className="btn btn-primary px-8 py-3 text-base">
-              Start Your Journey
-            </Link>
-            <Link href="/demo" className="btn btn-secondary px-8 py-3 text-base">
-              See Product Demo
+        <div className="rounded-3xl border border-slate-200/80 bg-gradient-to-b from-white to-slate-50/70 p-6 shadow-sm lg:p-8">
+          <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <h3 className="text-3xl font-bold text-dark-blue">Premium features for serious job seekers</h3>
+              <p className="mt-2 text-dark-gray">Same practical flow, delivered with sharper UX and richer guidance.</p>
+            </div>
+            <Link href="/resume" className="inline-flex items-center gap-2 text-sm font-semibold text-primary-blue hover:underline">
+              Open resume AI
+              <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
-        </motion.div>
+
+          <div className="grid gap-4 sm:grid-cols-2">
+            {premiumFeatures.map((feature, index) => (
+              <motion.article
+                key={feature.title}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.45, delay: index * 0.06 }}
+                viewport={{ once: true }}
+                className="rounded-2xl border border-slate-200 bg-white p-4"
+              >
+                <feature.icon className="mb-2 h-5 w-5 text-primary-teal" />
+                <h4 className="text-lg font-semibold text-dark-blue">{feature.title}</h4>
+                <p className="mt-1 text-sm text-medium-gray">{feature.text}</p>
+              </motion.article>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   )
 }
-
-export default SuccessStories

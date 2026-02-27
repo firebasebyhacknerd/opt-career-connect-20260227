@@ -1,123 +1,106 @@
 'use client'
 
+import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { Brain, ClipboardList, Compass, Search, Sparkles, Target } from 'lucide-react'
+import { ArrowRight, Building2, ShieldCheck, Sparkles } from 'lucide-react'
 
-const FeaturesSection = () => {
-  const features = [
-    {
-      icon: Brain,
-      title: 'Resume AI Coach',
-      description:
-        'Analyze your resume against a real job description and get prioritized fixes in minutes.',
-      color: 'from-primary-blue to-primary-teal',
-      benefits: ['ATS-style scoring', 'Keyword gap analysis', 'High-impact rewrite suggestions'],
-    },
-    {
-      icon: Search,
-      title: 'Visa-Friendly Job Search',
-      description:
-        'Search openings with filters tuned for OPT/CPT realities including location, level, and sponsorship.',
-      color: 'from-primary-teal to-primary-green',
-      benefits: ['Source mode controls', 'Fallback search continuity', 'Relevant job metadata'],
-    },
-    {
-      icon: Compass,
-      title: 'Guided Career Direction',
-      description:
-        'Turn scattered applications into a focused plan using practical next steps and fit-based targeting.',
-      color: 'from-secondary-orange to-secondary-pink',
-      benefits: ['Role fit summaries', 'Weekly execution checklist', 'Clear application priorities'],
-    },
-    {
-      icon: ClipboardList,
-      title: 'Admin Config Console',
-      description:
-        'Control AI provider, job source behavior, and site-level values without touching code or redeploying.',
-      color: 'from-primary-purple to-primary-pink',
-      benefits: ['Encrypted secret storage', 'Audit trail for changes', 'Live config with cache invalidation'],
-    },
-  ]
+const topCompanies = [
+  { name: 'Google', roles: 'Software, Data, Cloud', tone: 'from-blue-50 to-white' },
+  { name: 'Amazon', roles: 'SDE, Ops, Analytics', tone: 'from-orange-50 to-white' },
+  { name: 'Microsoft', roles: 'Product, AI, Engineering', tone: 'from-cyan-50 to-white' },
+  { name: 'Goldman Sachs', roles: 'Finance, Risk, Tech', tone: 'from-amber-50 to-white' },
+  { name: 'Deloitte', roles: 'Consulting, Strategy, Tech', tone: 'from-emerald-50 to-white' },
+  { name: 'Uber', roles: 'Data, Platform, Growth', tone: 'from-slate-100 to-white' },
+]
 
-  const journey = [
-    { step: '01', title: 'Upload Resume', detail: 'Drop your resume and add a target role description.' },
-    { step: '02', title: 'Review Insights', detail: 'Get detailed scoring for ATS, content, and keyword coverage.' },
-    { step: '03', title: 'Apply Smarter', detail: 'Find matching jobs and prioritize high-fit opportunities.' },
-  ]
+const industryTags = [
+  'Software Engineering',
+  'Data Science',
+  'Product Management',
+  'DevOps & Cloud',
+  'Cybersecurity',
+  'Business Analyst',
+  'Finance & FinTech',
+  'Healthcare Tech',
+  'Marketing Analytics',
+  'Operations',
+]
 
+export default function FeaturesSection() {
   return (
-    <section className="py-24" id="features">
-      <div className="container">
+    <section className="py-20" id="features">
+      <div className="container space-y-12">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="rounded-3xl border border-slate-200/80 bg-white/90 p-6 shadow-sm backdrop-blur lg:p-8"
         >
-          <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-primary-teal/20 bg-primary-teal/5 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-primary-teal">
-            <Sparkles className="h-4 w-4" />
-            Product Capabilities
-          </span>
-          <h2 className="mb-6 text-4xl font-bold text-dark-blue lg:text-5xl">
-            Tools that move you from confusion to interviews
-          </h2>
-          <p className="mx-auto max-w-3xl text-lg text-dark-gray">
-            Every feature is designed for high-velocity job search with visa-aware context and clear next actions.
-          </p>
-        </motion.div>
-
-        <div className="mb-16 grid gap-6 md:grid-cols-2">
-          {features.map((feature, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              className="group rounded-3xl border border-slate-200/80 bg-white/90 p-6 shadow-sm backdrop-blur transition-all hover:-translate-y-0.5 hover:shadow-xl"
-            >
-              <div className="mb-5 flex items-start gap-4">
-                <div className={`flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br ${feature.color} text-white shadow-md`}>
-                  <feature.icon className="h-5 w-5" />
-                </div>
-                <h3 className="pt-1 text-xl font-bold text-dark-blue group-hover:text-primary-blue">{feature.title}</h3>
-              </div>
-              <p className="mb-5 text-dark-gray">{feature.description}</p>
-              <ul className="space-y-2">
-                {feature.benefits.map((benefit, benefitIndex) => (
-                  <li key={benefitIndex} className="flex items-start gap-2 text-sm text-medium-gray">
-                    <Target className="mt-0.5 h-4 w-4 flex-shrink-0 text-secondary-green" />
-                    <span>{benefit}</span>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-          ))}
-        </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.55 }}
-          viewport={{ once: true }}
-          className="rounded-3xl border border-slate-200/80 bg-white/90 p-8 shadow-lg backdrop-blur lg:p-10"
-        >
-          <div className="mb-8 max-w-2xl">
-            <h3 className="mb-3 text-3xl font-bold text-dark-blue">A focused flow from resume to offer</h3>
-            <p className="text-dark-gray">
-              The platform is structured as a practical loop: optimize profile quality, target better roles, and
-              iterate based on response.
-            </p>
+          <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <span className="inline-flex items-center gap-2 rounded-full border border-primary-blue/20 bg-primary-blue/5 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-primary-blue">
+                <Sparkles className="h-3.5 w-3.5" />
+                Premium Companies
+              </span>
+              <h2 className="mt-3 text-3xl font-bold text-dark-blue">Target hiring brands students trust</h2>
+              <p className="mt-2 max-w-2xl text-dark-gray">
+                Jump to openings from high-intent employers and reduce random applications.
+              </p>
+            </div>
+            <Link href="/jobs" className="inline-flex items-center gap-2 text-sm font-semibold text-primary-blue hover:underline">
+              Explore all companies
+              <ArrowRight className="h-4 w-4" />
+            </Link>
           </div>
 
-          <div className="grid gap-4 md:grid-cols-3">
-            {journey.map((item) => (
-              <div key={item.step} className="rounded-2xl border border-slate-200 bg-slate-50/65 p-5">
-                <p className="mb-3 text-sm font-bold text-primary-blue">{item.step}</p>
-                <p className="mb-2 font-semibold text-dark-blue">{item.title}</p>
-                <p className="text-sm text-medium-gray">{item.detail}</p>
-              </div>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {topCompanies.map((company, index) => (
+              <motion.article
+                key={company.name}
+                initial={{ opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.45, delay: index * 0.06 }}
+                viewport={{ once: true }}
+                className={`rounded-2xl border border-slate-200 bg-gradient-to-b ${company.tone} p-4`}
+              >
+                <div className="mb-2 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-white shadow-sm">
+                  <Building2 className="h-5 w-5 text-primary-blue" />
+                </div>
+                <h3 className="text-lg font-semibold text-dark-blue">{company.name}</h3>
+                <p className="mt-1 text-sm text-medium-gray">{company.roles}</p>
+                <Link href={`/jobs?q=${encodeURIComponent(company.name)}`} className="mt-4 inline-flex text-sm font-semibold text-primary-blue hover:underline">
+                  View roles
+                </Link>
+              </motion.article>
+            ))}
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
+          className="rounded-3xl border border-slate-200/80 bg-gradient-to-r from-white/95 via-primary-teal/5 to-white/95 p-6 shadow-sm backdrop-blur lg:p-8"
+        >
+          <div className="mb-5 flex items-start gap-3">
+            <ShieldCheck className="mt-1 h-5 w-5 text-primary-teal" />
+            <div>
+              <h3 className="text-2xl font-bold text-dark-blue">Popular job categories</h3>
+              <p className="mt-1 text-dark-gray">Browse curated domains based on demand and OPT relevance.</p>
+            </div>
+          </div>
+
+          <div className="flex flex-wrap gap-2.5">
+            {industryTags.map((tag) => (
+              <Link
+                key={tag}
+                href={`/jobs?q=${encodeURIComponent(tag)}`}
+                className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-primary-teal hover:text-primary-teal"
+              >
+                {tag}
+              </Link>
             ))}
           </div>
         </motion.div>
@@ -125,5 +108,3 @@ const FeaturesSection = () => {
     </section>
   )
 }
-
-export default FeaturesSection

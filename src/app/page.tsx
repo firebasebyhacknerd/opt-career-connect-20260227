@@ -6,6 +6,7 @@ import SuccessStories from '@/components/SuccessStories'
 import CTASection from '@/components/CTASection'
 import Footer from '@/components/Footer'
 import SiteHeader from '@/components/SiteHeader'
+import FAQSection from '@/components/FAQSection'
 import { brand, getSiteUrl } from '@/lib/brand'
 
 export const metadata: Metadata = {
@@ -57,6 +58,7 @@ export default function Home() {
       <TrustBadges />
       <FeaturesSection />
       <SuccessStories />
+      <FAQSection />
       <CTASection />
       <Footer />
     </main>

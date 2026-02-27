@@ -1,66 +1,86 @@
 'use client'
 
+import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { Building2, CheckCircle, Clock3, Globe2 } from 'lucide-react'
+import { Briefcase, MapPin, SlidersHorizontal } from 'lucide-react'
 
-const TrustBadges = () => {
-  const badges = [
-    {
-      icon: Globe2,
-      title: 'Visa-aware by design',
-      text: 'Focused on OPT, CPT, and international student hiring',
-      color: 'text-primary-blue',
-    },
-    {
-      icon: Building2,
-      title: 'Employer network',
-      text: 'Roles from startups, mid-size firms, and enterprise teams',
-      color: 'text-primary-teal',
-    },
-    {
-      icon: Clock3,
-      title: 'Fast feedback',
-      text: 'Actionable resume insights in seconds, not days',
-      color: 'text-secondary-orange',
-    },
-    {
-      icon: CheckCircle,
-      title: 'Real student outcomes',
-      text: 'Built around real placement workflows and measurable progress',
-      color: 'text-secondary-green',
-    },
-  ]
+const locationLinks = ['Remote', 'New York', 'San Francisco', 'Dallas', 'Austin', 'Seattle']
+const preferenceLinks = ['Work from home', 'Top MNC', 'Startup roles', 'Night shift', 'Internships', 'Visa sponsorship']
+const industryLinks = ['Software', 'Data Science', 'Finance', 'Healthcare IT', 'Product', 'Operations']
 
+const sections = [
+  {
+    title: 'Jobs by location',
+    icon: MapPin,
+    accent: 'text-primary-blue',
+    bg: 'from-primary-blue/10 to-primary-blue/0',
+    items: locationLinks,
+    getHref: (item: string) => `/jobs?location=${encodeURIComponent(item)}`,
+  },
+  {
+    title: 'Jobs by preference',
+    icon: SlidersHorizontal,
+    accent: 'text-primary-teal',
+    bg: 'from-primary-teal/10 to-primary-teal/0',
+    items: preferenceLinks,
+    getHref: (item: string) => `/jobs?q=${encodeURIComponent(item)}`,
+  },
+  {
+    title: 'Jobs by industry',
+    icon: Briefcase,
+    accent: 'text-secondary-orange',
+    bg: 'from-secondary-orange/12 to-secondary-orange/0',
+    items: industryLinks,
+    getHref: (item: string) => `/jobs?q=${encodeURIComponent(item)}`,
+  },
+]
+
+export default function TrustBadges() {
   return (
-    <section className="py-12">
+    <section className="pb-10">
       <div className="container">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-          className="grid gap-4 rounded-3xl border border-slate-200/75 bg-gradient-to-r from-white/90 via-slate-50/95 to-white/90 p-5 shadow-sm backdrop-blur md:grid-cols-2 lg:grid-cols-4 lg:p-6"
-        >
-          {badges.map((badge, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
+        <div className="mb-6 flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-end">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-widest text-medium-gray">Explore faster</p>
+            <h2 className="mt-2 text-2xl font-bold text-dark-blue sm:text-3xl">Find jobs by what matters to you</h2>
+          </div>
+          <Link href="/jobs" className="text-sm font-semibold text-primary-blue hover:underline">
+            View all openings
+          </Link>
+        </div>
+
+        <div className="grid gap-4 lg:grid-cols-3">
+          {sections.map((section, index) => (
+            <motion.article
+              key={section.title}
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.45, delay: index * 0.08 }}
               viewport={{ once: true }}
-              className="rounded-2xl border border-slate-200/70 bg-white/90 p-5 shadow-sm backdrop-blur transition-all hover:-translate-y-0.5 hover:shadow-lg"
+              className="relative overflow-hidden rounded-2xl border border-slate-200/80 bg-white/90 p-5 shadow-sm backdrop-blur"
             >
-              <badge.icon className={`mb-3 h-6 w-6 ${badge.color}`} />
-              <p className="mb-1 text-sm font-bold text-dark-blue">{badge.title}</p>
-              <p className="text-sm text-medium-gray">
-                {badge.text}
-              </p>
-            </motion.div>
+              <div className={`pointer-events-none absolute inset-x-0 top-0 h-20 bg-gradient-to-b ${section.bg}`} />
+              <div className="relative z-10">
+                <div className="mb-4 inline-flex items-center gap-2">
+                  <section.icon className={`h-5 w-5 ${section.accent}`} />
+                  <h3 className="font-semibold text-dark-blue">{section.title}</h3>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {section.items.map((item) => (
+                    <Link
+                      key={item}
+                      href={section.getHref(item)}
+                      className="rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-700 transition hover:border-primary-blue hover:text-primary-blue"
+                    >
+                      {item}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </motion.article>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   )
 }
-
-export default TrustBadges
